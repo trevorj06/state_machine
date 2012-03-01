@@ -539,7 +539,9 @@ module StateMachine
     def initialize(owner_class, *args, &block)
       options = args.last.is_a?(Hash) ? args.pop : {}
       assert_valid_keys(options, :attribute, :initial, :initialize, :action, :plural, :namespace, :integration, :messages, :use_transactions)
-      
+
+      puts options
+
       # Find an integration that matches this machine's owner class
       if options.include?(:integration)
         @integration = StateMachine::Integrations.find_by_name(options[:integration]) if options[:integration]
@@ -551,10 +553,14 @@ module StateMachine
         extend @integration
         options = (@integration.defaults || {}).merge(options)
       end
-      
+
+      puts options
+
       # Add machine-wide defaults
       options = {:use_transactions => true, :initialize => true}.merge(options)
-      
+
+      puts options
+
       # Set machine configuration
       @name = args.first || :state
       @attribute = options[:attribute] || @name
@@ -568,6 +574,8 @@ module StateMachine
       @initialize_state = options[:initialize]
       self.owner_class = owner_class
       self.initial_state = options[:initial] unless sibling_machines.any?
+
+      puts options
 
       puts "initializing the state machine"
       puts "init use_transactions=#{@use_transactions}"
