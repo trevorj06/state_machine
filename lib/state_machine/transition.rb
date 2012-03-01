@@ -107,6 +107,7 @@ module StateMachine
     
     # The action that will be run when this transition is performed
     def action
+      puts "running action"
       machine.action
     end
     
@@ -216,6 +217,7 @@ module StateMachine
     # By default, transactions are a no-op unless otherwise defined by the
     # machine's integration.
     def within_transaction
+      puts "within transaction in transition"
       machine.within_transaction(object) do
         yield
       end
