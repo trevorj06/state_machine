@@ -568,7 +568,10 @@ module StateMachine
       @initialize_state = options[:initialize]
       self.owner_class = owner_class
       self.initial_state = options[:initial] unless sibling_machines.any?
-      
+
+      Rails.logger.error("initializing the state machine")
+      Rails.logger.error("init use_transactions=#{@use_transactions}")
+
       # Merge with sibling machine configurations
       add_sibling_machine_configs
       
