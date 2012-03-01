@@ -569,8 +569,8 @@ module StateMachine
       self.owner_class = owner_class
       self.initial_state = options[:initial] unless sibling_machines.any?
 
-      Rails.logger.error("initializing the state machine")
-      Rails.logger.error("init use_transactions=#{@use_transactions}")
+      puts "initializing the state machine"
+      puts "init use_transactions=#{@use_transactions}"
 
       # Merge with sibling machine configurations
       add_sibling_machine_configs
@@ -1843,12 +1843,12 @@ module StateMachine
     # default, this will not run any transactions since the changes aren't
     # taking place within the context of a database.
     def within_transaction(object)
-      Rails.logger.error("use_transactions=#{use_transactions}")
+      puts "use_transactions=#{use_transactions}"
       if use_transactions
-        Rails.logger.error("executing in a transaction")
+        puts "executing in a transaction"
         transaction(object) { yield }
       else
-        Rails.logger.error("not executing in a transaction")
+        puts "not executing in a transaction"
         yield
       end
     end
