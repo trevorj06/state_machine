@@ -425,6 +425,7 @@ module StateMachine
         # Runs a new database transaction, rolling back any changes if the
         # yielded block fails (i.e. returns false).
         def transaction(object)
+          puts "in a data mapper transaction"
           object.class.transaction {|t| t.rollback unless yield}
         end
         

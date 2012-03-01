@@ -413,6 +413,8 @@ module StateMachine
         # Runs a new database transaction, rolling back any changes if the
         # yielded block fails (i.e. returns false).
         def transaction(object)
+          puts "in a seqel transaction"
+
           object.db.transaction {raise ::Sequel::Error::Rollback unless yield}
         end
         
