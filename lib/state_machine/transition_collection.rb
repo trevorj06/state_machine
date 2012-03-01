@@ -49,9 +49,12 @@ module StateMachine
     # of invoking each transition's action.
     def perform(&block)
       reset
-      
+
+      puts 'in perform'
+
       if valid?
         if use_event_attributes? && !block_given?
+          puts 'looping the transitions'
           each do |transition|
             transition.transient = true
             transition.machine.write(object, :event_transition, transition)
@@ -59,7 +62,9 @@ module StateMachine
           
           run_actions
         else
+          puts 'not using event'
           within_transaction do
+            puts 'inside the within transaction block'
             catch(:halt) { run_callbacks(&block) }
             rollback unless success?
           end
@@ -184,6 +189,7 @@ module StateMachine
           end
         else
           puts "executing not in a transaction"
+
           yield
         end
       end
