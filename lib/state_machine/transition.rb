@@ -208,7 +208,7 @@ module StateMachine
       run_action = [true, false].include?(args.last) ? args.pop : true
       self.args = args
 
-      puts "running action #{ run_action}"
+      puts "running action #{ self}"
 
       # Run the transition
       !!TransitionCollection.new([self], :actions => run_action).perform

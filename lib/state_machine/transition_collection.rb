@@ -177,11 +177,13 @@ module StateMachine
       # transactions are disabled, then this is a no-op.
       def within_transaction
         if use_transaction && !empty?
+          puts "executing in a transaction"
           first.within_transaction do
             yield
             success?
           end
         else
+          puts "executing not in a transaction"
           yield
         end
       end

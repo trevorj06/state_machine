@@ -495,6 +495,7 @@ module StateMachine
         # an ActiveRecord::Rollback exception if the yielded block fails
         # (i.e. returns false).
         def transaction(object)
+          puts "in a transaction"
           object.class.transaction {raise ::ActiveRecord::Rollback unless yield}
         end
         
