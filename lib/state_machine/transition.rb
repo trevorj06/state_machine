@@ -107,7 +107,6 @@ module StateMachine
     
     # The action that will be run when this transition is performed
     def action
-      puts "running action"
       machine.action
     end
     
@@ -208,7 +207,9 @@ module StateMachine
     def perform(*args)
       run_action = [true, false].include?(args.last) ? args.pop : true
       self.args = args
-      
+
+      puts "running action #{ run_action}"
+
       # Run the transition
       !!TransitionCollection.new([self], :actions => run_action).perform
     end
